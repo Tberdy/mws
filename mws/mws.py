@@ -293,29 +293,35 @@ class MWS(object):
 
     def enumerate_dict(self, param, dic):
         """
-        Builds a dictionary of an enumerated parameter. Takes any dictionary and returns a dictionary recursively
+        Builds a dictionary of an enumerated parameter. Takes any dictionary and returns
+        a dictionary recursively
+
+        ie. enumerate_list('MarketplaceIdList.Id', (123, 345, 4343))
+            returns
+            {
+                MarketplaceIdList.Id.1: 123,
+                MarketplaceIdList.Id.2: 345,
+                MarketplaceIdList.Id.3: 4343
+            }
 
         Args:
-            param (): 
-            dic (`dict`): 
-
-        Returns:
-
+            param (`str`): the beginning of the key in the returned dictionary
+            values(`list`): the values in the returned dictionary
         """
 
         params = {}
         if dic is not None:
             if not param.endswith('.'):
-                param = "%s." % param
+                param = "{}.".format(param)
             for key, value in dic.items():
                 if isinstance(value, list):
                     for sub_key, sub_value in self.enumerate_list(param=key, values=value).items():
-                        params['%s%s' % (key, sub_key)] = sub_value
+                        params['{0}{1}'.format(key, sub_key)] = sub_value
                 elif isinstance(value, dict):
                     for sub_key, sub_value in self.enumerate_dict(param=key, dic=value).items():
-                        params['%s%s' % (key, sub_key)] = sub_value
+                        params['{0}{1}'.format(key, sub_key)] = sub_value
                 else:
-                    params['%s%s' % (param, key)] = value
+                    params['{0}{1}'.format(param, key)] = value
         return params
 
     def enumerate_list(self, param, values):
