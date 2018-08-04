@@ -1,4 +1,4 @@
-import mws
+import mwsold
 
 
 def test_get_service_status():

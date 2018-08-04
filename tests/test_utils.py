@@ -1,4 +1,4 @@
-from mws.mws import calc_md5
+from mwsold.mws import calc_md5
 
 
 def test_calc_md5():

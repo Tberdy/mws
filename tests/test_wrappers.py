@@ -1,6 +1,6 @@
 import pytest
 
-from mws.mws import DataWrapper, MWSError
+from mwsold.mws import DataWrapper, MWSError
 
 
 def test_content_md5_comparison():
